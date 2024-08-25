@@ -1,0 +1,5 @@
+{
+  "_id": "ObjectId",
+  "topic_name": "string",
+  "date_taught": "date"
+}

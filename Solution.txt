@@ -1,0 +1,64 @@
+// Find topics taught in October
+db.topics.find({
+  "date_taught": {
+    $gte: ISODate("2023-10-01"),
+    $lt: ISODate("2023-11-01")
+  }
+});
+
+// Find tasks assigned in October
+db.tasks.find({
+  "submission_date": {
+    $gte: ISODate("2023-10-01"),
+    $lt: ISODate("2023-11-01")
+  }
+});
+
+//Find all the company drives which appeared between 15 Oct 2020 and 31 Oct 2020:
+db.company_drives.find({
+  "date": {
+    $gte: ISODate("2020-10-15"),
+    $lte: ISODate("2020-10-31")
+  }
+});
+
+//Find all the company drives and students who appeared for the placement:
+
+db.company_drives.find()
+
+//Find the number of problems solved by each user in codekata:
+
+db.codekata.aggregate([
+  {
+    $group: {
+      _id: "$user_id",
+      total_problems_solved: { $sum: "$problems_solved" }
+    }
+  }
+]);
+
+//Find all the mentors who have mentees count more than 15:
+
+db.mentors.find({
+  "mentees": { $size: { $gt: 15 } }
+});
+
+//Find the number of users who are absent and have not submitted tasks between 15 Oct 2020 and 31 Oct 2020:
+
+-> Users who were absent between 15 Oct 2020 and 31 Oct 2020
+let absentUsers = db.attendance.find({
+  "date": { $gte: ISODate("2020-10-15"), $lte: ISODate("2020-10-31") },
+  "status": "Absent"
+}).map(user => user.user_id);
+
+-> Users who have not submitted tasks between 15 Oct 2020 and 31 Oct 2020
+let nonSubmittedUsers = db.tasks.find({
+  "submission_date": { $gte: ISODate("2020-10-15"), $lte: ISODate("2020-10-31") },
+  "status": "Not Submitted"
+}).map(user => user.user_id);
+
+-> Users who are both absent and have not submitted tasks
+let result = absentUsers.filter(user => nonSubmittedUsers.includes(user));
+
+print("Number of users absent and not submitted tasks: ", result.length);
+

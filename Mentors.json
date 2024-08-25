@@ -1,0 +1,10 @@
+{
+  "_id": "ObjectId",
+  "mentor_name": "string",
+  "mentees": [
+    {
+      "user_id": "ObjectId, // References users._id",
+      "name": "string"
+    }
+  ]
+}

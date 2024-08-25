@@ -1,0 +1,6 @@
+{
+  "_id": "ObjectId",
+  "company_name": "string",
+  "date": "date",
+  "user_id": "ObjectId // References users._id"
+}

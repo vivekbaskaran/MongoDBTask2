@@ -1,0 +1,7 @@
+{
+  "_id": "ObjectId",
+  "user_id": "ObjectId // References users._id",
+  "task_name": "string",
+  "submission_date": "date",
+  "status": "string // Submitted or Not Submitted"
+}
